@@ -1,10 +1,9 @@
 # Marble Game - Assignment 1
-# Deadline: 14th November 2022 - 23:59
+# Deadline: 5th May 2023 - 23:59
 
 ## Updates
 
-  1) Deadline was changed to 14th November 2022 - 23:59
-  1) The implementation of CMACS have been delayed to the 2nd assignment.
+  1) Deadline was changed to 5th May 2023 - 23:59
 
 ## Introduction
 
@@ -15,17 +14,8 @@ You will demonstrate the control using a marble game.
 
 ## Challenge 1: Open-Loop Control of the Two-Dimensional Marble Game
 
-In this challenge, we will first demonstrate the ability to control the movement
-of the hip. 
-
-After constructing your leg assembly, add a two dimensional maze at the hip
-of your robot. The size of the maze should be 11cm by 15cm. The goal is to roll
-a golf or table tennis ball from the Start position to the Goal position.
-
-The walls of your maze should be about 1cm tall. For a greater challenge, you 
-can lower the height of the walls, especially the external walls. Then you have
-to carefully control the speed of the ball, since it will otherwise jump out of
-the maze.
+In this challenge, we want to implement a reinforcement learning
+algorithm for the marble game shown below.
 
 <div style={{textAlign: 'center', width:'40%'}}>
   <table>
@@ -56,7 +46,7 @@ the maze.
 ### Servo Control 
 
 First implement a program on the Raspberry PI to demonstrate control
-of the four RC servos. 
+of the RC servos. 
 
 Identify the maximum angles and home positions of your servos.
 
@@ -87,70 +77,21 @@ and the ball.
 Implement a program for the camera. I suggest a simple blob/color detector 
 to estimate the position of the ball and angle of the hip of your leg.
 
-### PID Control
+### TD-lambda Algorithm
 
-Implement and tune a PID controller to try and balance the ball on the track, so that
-it holds its position near the center of the playing field.
+Design, implement, and tune a reinforcement learning algorithm (TD-lambda)
+as described in class to roll the marble from the start to the end 
+cell.
 
-## Challenge 2: Closed Loop Control of the One-Dimensional Marble Game 
-
-In this part of the challenge, we will simplify the maze to a single rail,
-which runs from the front to the back of your maze.
-
-<div style={{textAlign: 'center', width:'40%'}}>
-  <table>
-    <tbody>
-      <tr>
-        <td>
-          ![maze2][maze2]
-        </td>
-        </tr>
-        <tr>
-        <td>
-          A maze with a single rail for experiments in feedback control.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-[maze2]: ./maze2.svg
-
-## Challenge 3: Closed Loop Control of the Two-Dimensional Marble Game 
-
-In the third challenge, we extend our work to control the ball to balance
-on a plane in two dimensions.
-
-The maze is empty inside. The Start is at the top left and the goal is center of the
-playing field.
+First, you will need to discretize the state (i.e., the position of the ball
+in the maze) as well as the actions (i.e., the angles used to control
+the servos), since both of those are continuous rather than discrete 
+variables. 
 
 ### Camera
 
 Modify your camera setup and vision application to estimate the position on the
 top of the plane.
-
-### PID Control
-
-Add and tune an additional PID controller so that you can balance on the plane.
-
-<div style={{textAlign: 'center', width:'40%'}}>
-  <table>
-    <tbody>
-      <tr>
-        <td>
-          ![maze3][maze3]
-        </td>
-        </tr>
-        <tr>
-        <td>
-          A maze with a single rail for experiments in feedback control.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-[maze3]: ./maze3.svg
 
 ## Honesty declaration
 
