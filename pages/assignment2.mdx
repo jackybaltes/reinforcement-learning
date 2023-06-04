@@ -1,54 +1,32 @@
 # Experiments in Leg Dynamics - Assignment 2
-# Deadline: 19th December 2022 - 23:59
+# Deadline: 19th June 2023 - 23:59
 
 ## Updates
-
 
 ## Introduction
 
 The goal of this assignment is to demonstrate your ability to implement
-and control dynamic motions for your humanoid robot.
+and control dynamic motions of your leg assembly or humanoid robot.
 
-You will demonstrate the control using: (a) a marble game, and (b) spring supported
-triple jump.
+You will implement a hybrid simulation - online reinforcement learner
+that uses an artificial neural network or similar function approximator
+to deal with the continuous state space of this problem.
 
-## Challenge 1: Balance using rounded feet
+You will demonstrate the control using: (a) a 1D marble game, (b) a 2D marble game, and (c) a triple jump.
 
-First, replace the standard feet of your robot leg with a rounded feet.
-You can construct your new foot using styrofoam, cardboard, or other 
-similar material.
+### Camera Feedback
 
-<div style={{textAlign: 'center', width:'40%'}}>
-  <table>
-    <tbody>
-      <tr>
-        <td>
-          ![leg][leg]
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Side view of leg assembly with rounded feet 
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+Mount the camera of the Raspberry Pi so that you can track the position
+of the ball with your controller.
 
-[leg]: ./leg_assembly_side_rounded.svg
+Implement a program for the camera. I suggest a simple blob/color detector 
+to estimate the position of the ball.
 
-### Open Loop Control of Front-Back Swing
+## Challenge 1: 1D Marble Game
 
-First implement a program that makes the leg swing forward and backwards smoothly.
-There are several methods for implementing such behavior, including central pattern
-generators (CPG).
-
-### Closed Loop Control of Front-Back Swing while Balancing the Marble/Ball
-
-Implement an application on the Raspberry PI to control the leg with rounded feet.
-
-In this part of the challenge, we will simplify the maze to a single rail,
-which runs from the front to the back of your maze.
+First, replace the 2D marble game with a 1D marble game.
+That is, construct a rail where the marble can move
+forward and backwards only.
 
 <div style={{textAlign: 'center', width:'40%'}}>
   <table>
@@ -57,10 +35,10 @@ which runs from the front to the back of your maze.
         <td>
           ![maze2][maze2]
         </td>
-        </tr>
-        <tr>
+      </tr>
+      <tr>
         <td>
-          A maze with a single rail for experiments in feedback control.
+          1D Marble Game 
         </td>
       </tr>
     </tbody>
@@ -69,37 +47,63 @@ which runs from the front to the back of your maze.
 
 [maze2]: ./maze2.svg
 
-### Camera Feedback
+The goal is to train the system to learn how to stop the marble in the
+center of the track.
 
-Mount the camera of the Raspberry PI so that you can the angle of your leg
-as well as the ball. 
+Note that the problem requires you to model both the position
+and the speed of the marble.
 
-Implement a program for the camera. I suggest a simple blob/color detector 
-to estimate the position of the ball and angle of the hip of your leg.
+Apply reinforcement learning to learn the control policy. 
+You can use a policy gradient based approach.
+To speed up your learner, you can implement a simple simulation to bootsstrap
+your learner.
+Finally, the learning can continue online to match the specific hardware.
 
-### PID Control
+## Challenge 2: 2D Marble Game
 
-Implement and tune a PID controller to try and balance the ball on the 
-track using your new leg assembly with rounded feet.
+Extend the 1D marble game to 2D. The goal is for the ball to
+come to a stop in the center of the maze.
 
-## Challenge 2: Cerebellar Model Articulation Controller (CMAC) based Control
+<div style={{textAlign: 'center', width:'40%'}}>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          ![maze3][maze3]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          2D Marble Game 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-Replace the PID controller in the previous challenge with a CMAC controller.
-The CMAC controller should control the two joints in the lateral plane using
-current angle of the leg, current angle of the maze, current velocity of the ball,
-and current position of the ball.
+[maze3]: ./maze3.svg
 
-## Challenge 3: Jumping robot
+Apply reinforcement learning to learn the control policy. 
+You can use a policy gradient based approach.
+To speed up your learner, you can implement a simple simulation to bootsstrap
+your learner.
+Finally, the learning can continue online to match the specific hardware.
 
-In this challenge, we want to implement a triple jump event for your 
-new leg design. [Triple jump](https://docs.google.com/document/d/1138PG7zFm9Jh7_-GzMh-iRlojvYKK-k53MfjWW7KUEw/edit)
+## Challenge 3: Triple Jump
+
+In this challenge, we want to implement a triple jump event for 
+the leg design. [Triple jump](https://docs.google.com/document/d/1138PG7zFm9Jh7_-GzMh-iRlojvYKK-k53MfjWW7KUEw/edit)
  is an event in the [FIRA HuroCup](https://firaworldcup.org/leagues/fira-sports/hurocup/) competition.
 
 We use a simplifed version of the event in this assignment. The winner of the 
 competition is the team that can jump the furthest with a maximum of three jumps.
 
-To reduce the amount of impact forces and to provide you with a method to store
-a large amount of energy, you should add springs to the bottom of your feet.
+
+Apply reinforcement learning to learn the control policy. 
+You can use a policy gradient based approach.
+To speed up your learner, you can implement a simple simulation to bootsstrap
+your learner.
+Finally, the learning can continue online to match the specific hardware.
 
 ## Honesty declaration
 
